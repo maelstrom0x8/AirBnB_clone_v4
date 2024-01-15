@@ -9,4 +9,14 @@ $(document).ready(function () {
     const names = Object.keys(amenity);
     $('.amenities h4').text(names.sort().join(', '));
   });
+
+  fetchStatus();
 });
+
+function fetchStatus() {
+  $.get("http://0.0.0.0:5001/api/v1/status/", (res, msg) => {
+    const status = msg === 'success' && res.status === 'OK'
+    status ? $('#api_status').addClass('available')
+      : $('#api_status').removeClass('available');
+  });
+}
